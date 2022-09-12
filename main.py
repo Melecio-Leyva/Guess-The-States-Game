@@ -19,13 +19,15 @@ while len(guessed_state) < 50:
     answer = screen.textinput(title=f"{len(guessed_state)}/50 States Correct", prompt="Guess another state?").title()
     # allow user to exit the game
     if answer == "Exit":
-        # create list to check all the states the user has missed
-        missing_states = []
-        # loop through the states
-        for state in all_states:
-            # check if the states are in the guessed list, and if not add them to the missing_states list
-            if state not in guessed_state:
-                missing_states.append(state)
+        # List comprehension 
+        missing_states = [state for state in all_states if state not in guessed_state]
+        # # create list to check all the states the user has missed
+        # missing_states = []
+        # # loop through the states
+        # for state in all_states:
+        #     # check if the states are in the guessed list, and if not add them to the missing_states list
+        #     if state not in guessed_state:
+        #         missing_states.append(state)
         # create new panda object from the missing states using panda DataFrame
         new_data = pandas.DataFrame(missing_states)
         # create CSV file of the missing_states list
@@ -45,6 +47,4 @@ while len(guessed_state) < 50:
         t.goto(int(state_row.x), int(state_row.y))
         # write the answer on the screen
         t.write(answer)
-
-
 
